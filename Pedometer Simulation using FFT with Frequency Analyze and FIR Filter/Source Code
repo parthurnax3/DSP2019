@@ -11,5 +11,5 @@ C1 = C2(1:L/2+1);           %Cari spektrum satu sisi dari C2 dan L
 C1(2:end-1) = 2*C1(2:end-1);
 f = Fs*(0:(L/2))/L;
 Filter=fir1(20, 0.5)        %Filter FIR untuk memudahkan mencari peaks
-C1_filtered=filter(Filter, 1 ,C1);
+C1_filtered=filter(Filter, 1 ,C1);  %Hasi lakhir yang bisa dicari peaknya buat ngitung langkah
 jumlahlangkah=findpeaks(C1_filtered);
