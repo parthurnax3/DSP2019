@@ -1,0 +1,15 @@
+input=readtable('HIMU-2019-12-14_09-07-39.csv');
+L=108;
+Fs=1/0.1;
+input_array=table2array(input);
+T=1/Fs;
+t=(0:L-1)*T;
+input_array_scalar=sqrt(sum(input_array.^2, 2));
+FFT=fft(input_array_scalar);
+C2 = abs(FFT/L);            %Cari absolute value/magnitude dari input
+C1 = C2(1:L/2+1);           %Cari spektrum satu sisi dari C2 dan L
+C1(2:end-1) = 2*C1(2:end-1);
+f = Fs*(0:(L/2))/L;
+Filter=fir1(20, 0.5)        %Filter FIR untuk memudahkan mencari peaks
+C1_filtered=filter(Filter, 1 ,C1);
+jumlahlangkah=findpeaks(C1_filtered);
